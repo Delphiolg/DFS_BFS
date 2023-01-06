@@ -133,8 +133,6 @@ var G: TGraph;
     B: Boolean;
 begin
 
-  Randomize;
-
   N := 12;
 
   VisitedList := TList<Boolean>.Create;
@@ -148,30 +146,13 @@ begin
 
   G := TGraph.Create(N);
 
-//  for i := 1 to N do
-//    begin
-//      G.Add(Random(N), Random(N));
-//    end;
-
-//ES1: Signal7(0) -> Signal8(1)
-//ES1: Signal7(0) -> Signal10(3)
-//ES1: Signal8(1) -> Signal9(2)
-//ES1: Signal8(1) -> Signal11(4)
-//ES1: Signal9(2) -> Signal12(5)
-//BS1: Signal1(6) -> Signal12(5)
-//ES1: Signal1(6) -> Signal2(7)
-//ES1: Signal1(6) -> Signal6(11)
-//ES1: Signal2(7) -> Signal3(8)
-//ES1: Signal2(7) -> Signal4(9)
-//ES1: Signal3(8) -> Signal5(10)
-
   G.Add(0, 1);
   G.Add(0, 3);
   G.Add(1, 2);
   G.Add(1, 4);
   G.Add(2, 5);
   G.Add(6, 5);
-  G.Add(5, 6);
+//  G.Add(5, 6);
   G.Add(6, 7);
   G.Add(6, 11);
   G.Add(7, 8);
@@ -184,31 +165,30 @@ begin
       if not VisitedList[i] then
         begin
           G.DFS(i, VisitedList);
-//          PrintVisiteList(VisitedList);
+          PrintVisiteList(VisitedList);
         end;
     end;
 
-//  VisitedList.Clear;
-//  for i := 0 to N - 1 do
-//    begin
-//      VisitedList.Add(False);
-//    end;
-//
-//  Writeln;
-//  Writeln('-- BFS --');
+  for i := 0 to N - 1 do
+    begin
+      VisitedList[i] := False;
+    end;
 
-//  for i := 0 to VisitedList.Count - 1 do
-//    begin
-//      if not VisitedList[i] then
-//        begin
-//          G.BFS(i, VisitedList);
-////          PrintVisiteList(VisitedList);
-//        end;
-//    end;
+  Writeln;
+  Writeln('-- BFS --');
+
+  for i := 0 to VisitedList.Count - 1 do
+    begin
+      if not VisitedList[i] then
+        begin
+          G.BFS(i, VisitedList);
+          PrintVisiteList(VisitedList);
+        end;
+    end;
 
   FreeAndNil(G);
   FreeAndNil(VisitedList);
-  ReportMemoryLeaksOnShutdown := True;
+
   Readln;
 
 end.
