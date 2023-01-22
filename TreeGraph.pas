@@ -53,6 +53,7 @@ destructor TTreeGraph.Destroy;
 begin
 
   FreeAndNil(FList);
+  FreeAndNil(FVisitedList);
 
   inherited;
 end;
